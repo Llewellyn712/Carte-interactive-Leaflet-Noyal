@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Déploiement des colonnes enterrées</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      #map {
+        height: 100vh;
+        width: 100vw;
+      }
+      h1 {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-family: sans-serif;
+        font-size: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 0;
+        text-align: center;
+        max-width: 95vw;
+      }
+      .leaflet-popup-content-wrapper {
+        width: 500px !important;
+        max-width: 500px !important;
+      }
+      .leaflet-popup-content {
+        width: 500px !important;
+        margin: 0 !important;
+      }
+      .leaflet-popup-content img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        margin-bottom: 8px;
+      }
+      .leaflet-popup-content p {
+        margin: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Déploiement des colonnes enterrées</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      const map = L.map('map').setView([48.0675, -2.8800], 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> - rendu par <a href="https://www.openstreetmap.fr/">OSM France</a>',
+        maxZoom: 20,
+      }).addTo(map);
+
+      const sites = [
+        {
+          position: { lat: 48.0687, lng: -2.88338 },
+          icon: "Icones/Site 1 marker_Plan de travail 1.png",
+          image: "Photos/Rue Pontorson.png",
+          adresse: "Collecte 1 : Rue du Père Le Texier"
+        },
+        {
+          position: { lat: 48.06984, lng: -2.88498 },
+          icon: "Icones/Site 2 marker_Plan de travail 1.png",
+          image: "Photos/Rue des Rosiers - Pontigo 1.png",
+          adresse: "Collecte 2 : Rue des rosiers / Rue du Pontigo"
+        },
+        {
+          position: { lat: 48.0667, lng: -2.87431 },
+          icon: "Icones/Site 3 marker_Plan de travail 1.png",
+          image: "Photos/Le Verger - bel air.png",
+          adresse: "Collecte 3 : Le Verger / Bel air"
+        },
+        {
+          position: { lat: 48.06985, lng: -2.8824 },
+          icon: "Icones/Site 4 marker_Plan de travail 1.png",
+          image: "Photos/Parking du château d'eau.png",
+          adresse: "Collecte 4 : Parking du château d'eau"
+        },
+        {
+          position: { lat: 48.06912, lng: -2.87623 },
+          icon: "Icones/Site 5 marker_Plan de travail 1.png",
+          image: "Photos/Rue Abbé Le Drogo.png",
+          adresse: "Collecte 5 : Rue Abbé Le Drogo"
+        },
+        {
+          position: { lat: 48.06474, lng: -2.88285 },
+          icon: "Icones/Site 6 marker_Plan de travail 1.png",
+          image: "Photos/Rue Kroez-Person 1.png",
+          adresse: "Collecte 6 : Rue Kroez-Person (La Poste)"
+        },
+        {
+          position: { lat: 48.06663, lng: -2.88406 },
+          icon: "Icones/Site 7 marker_Plan de travail 1.png",
+          image: "Photos/Rue Joachim Le Strat.png",
+          adresse: "Collecte 7 : Rue Joachim Le Strat"
+        },
+        {
+          position: { lat: 48.0682, lng: -2.88728 },
+          icon: "Icones/Site 8 marker_Plan de travail 1.png",
+          image: "Photos/Rue des sports (2).png",
+          adresse: "Collecte 8 : Rue des sports"
+        },
+        {
+          position: { lat: 48.0643, lng: -2.88 },
+          icon: "Icones/Site 9 marker_Plan de travail 1.png",
+          image: "Photos/Rue de Collesternic.png",
+          adresse: "Collecte 9 : Rue du petit Paris - Collesternic"
+        },
+        {
+          position: { lat: 48.06527, lng: -2.88753 },
+          icon: "Icones/Site 10 marker_Plan de travail 1.png",
+          image: "Photos/Maison des jeunes.png",
+          adresse: "Collecte 10 : Maison des jeunes"
+        },
+        {
+          position: { lat: 48.06217, lng: -2.89067 },
+          icon: "Icones/Site 11 marker_Plan de travail 1.png",
+          image: "Photos/Rue Follereau.png",
+          adresse: "Collecte 11 : Rue Raoul Follereau"
+        },
+        {
+          position: { lat: 48.06385, lng: -2.88592 },
+          icon: "Icones/Site 12 marker_Plan de travail 1.png",
+          image: "Photos/Rue des frères Cogets.png",
+          adresse: "Collecte 12 : Rue des frères Cogets"
+        },
+        {
+          position: { lat: 48.06745, lng: -2.87984 },
+          icon: "Icones/Site 13 marker_Plan de travail 1.png",
+          image: "Photos/Avenue de la libération.png",
+          adresse: "Collecte 13 : Avenue de la libération"
+        },
+        {
+          position: { lat: 48.06753, lng: -2.86298 },
+          icon: "Icones/Site 14 marker_Plan de travail 1.png",
+          image: "Photos/Cité solaire.png",
+          adresse: "Collecte 14 : Cité solaire"
+        },
+        {
+          position: { lat: 48.06735, lng: -2.89082 },
+          icon: "Icones/Site 15 marker_Plan de travail 1.png",
+          image: "Photos/Rue des bouleaux.png",
+          adresse: "Collecte 15 : Rue des bouleaux"
+        },
+        {
+          position: { lat: 48.06094, lng: -2.88158 },
+          icon: "Icones/Site 16 marker_Plan de travail 1.png",
+          image: "Photos/Impasse Lamennais.png",
+          adresse: "Collecte 16 : Impasse Lamennais"
+        },
+      ];
+
+      sites.forEach(site => {
+        const customIcon = L.icon({
+          iconUrl: site.icon,
+          iconSize: [48, 48],
+          iconAnchor: [24, 48],
+          popupAnchor: [0, -48]
+        });
+
+        L.marker([site.position.lat, site.position.lng], { icon: customIcon })
+          .addTo(map)
+          .bindPopup(`
+            <div>
+              <img src="${site.image}" alt="Photo de ${site.adresse}">
+              <p>${site.adresse}</p>
+            </div>
+          `);
+      });
+    </script>
+  </body>
+</html>
