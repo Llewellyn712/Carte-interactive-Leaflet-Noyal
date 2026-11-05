@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <title>Déploiement des colonnes enterrées</title>
@@ -13,7 +13,7 @@
       }
       #map {
         height: 100vh;
-        width: 100vw;
+        width: 100%;
       }
       h1 {
         position: absolute;
@@ -31,12 +31,13 @@
         text-align: center;
         max-width: 95vw;
       }
+
       .leaflet-popup-content-wrapper {
-        width: 500px !important;
         max-width: 500px !important;
       }
       .leaflet-popup-content {
-        width: 500px !important;
+        width: 320px;
+        max-width: 90vw;
         margin: 0 !important;
       }
       .leaflet-popup-content img {
@@ -44,12 +45,19 @@
         height: auto;
         border-radius: 6px;
         margin-bottom: 8px;
+        display: block;
       }
       .leaflet-popup-content p {
         margin: 10px;
         font-size: 14px;
         font-weight: bold;
         color: #333;
+      }
+
+      @media (min-width: 768px) {
+        .leaflet-popup-content {
+          width: 500px;
+        }
       }
     </style>
   </head>
@@ -59,110 +67,30 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-      const map = L.map('map').setView([48.0675, -2.8800], 15);
+      const map = L.map('map').setView([48.0675, -2.88], 15);
 
       L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> - rendu par <a href="https://www.openstreetmap.fr/">OSM France</a>',
-        maxZoom: 20,
+        attribution: '&copy; OpenStreetMap - rendu OSM France',
+        maxZoom: 20
       }).addTo(map);
 
       const sites = [
-        {
-          position: { lat: 48.0687, lng: -2.88338 },
-          icon: "Icones/Site 1 marker_Plan de travail 1.png",
-          image: "Photos/Rue Pontorson.png",
-          adresse: "Collecte 1 : Rue du Père Le Texier"
-        },
-        {
-          position: { lat: 48.06984, lng: -2.88498 },
-          icon: "Icones/Site 2 marker_Plan de travail 1.png",
-          image: "Photos/Rue des Rosiers - Pontigo 1.png",
-          adresse: "Collecte 2 : Rue des rosiers / Rue du Pontigo"
-        },
-        {
-          position: { lat: 48.0667, lng: -2.87431 },
-          icon: "Icones/Site 3 marker_Plan de travail 1.png",
-          image: "Photos/Le Verger - bel air.png",
-          adresse: "Collecte 3 : Le Verger / Bel air"
-        },
-        {
-          position: { lat: 48.06985, lng: -2.8824 },
-          icon: "Icones/Site 4 marker_Plan de travail 1.png",
-          image: "Photos/Parking du château d'eau.png",
-          adresse: "Collecte 4 : Parking du château d'eau"
-        },
-        {
-          position: { lat: 48.06912, lng: -2.87623 },
-          icon: "Icones/Site 5 marker_Plan de travail 1.png",
-          image: "Photos/Rue Abbé Le Drogo.png",
-          adresse: "Collecte 5 : Rue Abbé Le Drogo"
-        },
-        {
-          position: { lat: 48.06474, lng: -2.88285 },
-          icon: "Icones/Site 6 marker_Plan de travail 1.png",
-          image: "Photos/Rue Kroez-Person 1.png",
-          adresse: "Collecte 6 : Rue Kroez-Person (La Poste)"
-        },
-        {
-          position: { lat: 48.06663, lng: -2.88406 },
-          icon: "Icones/Site 7 marker_Plan de travail 1.png",
-          image: "Photos/Rue Joachim Le Strat.png",
-          adresse: "Collecte 7 : Rue Joachim Le Strat"
-        },
-        {
-          position: { lat: 48.0682, lng: -2.88728 },
-          icon: "Icones/Site 8 marker_Plan de travail 1.png",
-          image: "Photos/Rue des sports (2).png",
-          adresse: "Collecte 8 : Rue des sports"
-        },
-        {
-          position: { lat: 48.0643, lng: -2.88 },
-          icon: "Icones/Site 9 marker_Plan de travail 1.png",
-          image: "Photos/Rue de Collesternic.png",
-          adresse: "Collecte 9 : Rue du petit Paris - Collesternic"
-        },
-        {
-          position: { lat: 48.06527, lng: -2.88753 },
-          icon: "Icones/Site 10 marker_Plan de travail 1.png",
-          image: "Photos/Maison des jeunes.png",
-          adresse: "Collecte 10 : Maison des jeunes"
-        },
-        {
-          position: { lat: 48.06217, lng: -2.89067 },
-          icon: "Icones/Site 11 marker_Plan de travail 1.png",
-          image: "Photos/Rue Follereau.png",
-          adresse: "Collecte 11 : Rue Raoul Follereau"
-        },
-        {
-          position: { lat: 48.06385, lng: -2.88592 },
-          icon: "Icones/Site 12 marker_Plan de travail 1.png",
-          image: "Photos/Rue des frères Cogets.png",
-          adresse: "Collecte 12 : Rue des frères Cogets"
-        },
-        {
-          position: { lat: 48.06745, lng: -2.87984 },
-          icon: "Icones/Site 13 marker_Plan de travail 1.png",
-          image: "Photos/Avenue de la libération.png",
-          adresse: "Collecte 13 : Avenue de la libération"
-        },
-        {
-          position: { lat: 48.06753, lng: -2.86298 },
-          icon: "Icones/Site 14 marker_Plan de travail 1.png",
-          image: "Photos/Cité solaire.png",
-          adresse: "Collecte 14 : Cité solaire"
-        },
-        {
-          position: { lat: 48.06735, lng: -2.89082 },
-          icon: "Icones/Site 15 marker_Plan de travail 1.png",
-          image: "Photos/Rue des bouleaux.png",
-          adresse: "Collecte 15 : Rue des bouleaux"
-        },
-        {
-          position: { lat: 48.06094, lng: -2.88158 },
-          icon: "Icones/Site 16 marker_Plan de travail 1.png",
-          image: "Photos/Impasse Lamennais.png",
-          adresse: "Collecte 16 : Impasse Lamennais"
-        },
+        { position: { lat: 48.0687, lng: -2.88338 }, icon: "Icones/site-1-marker.png", image: "Photos/rue-pontorson.png", adresse: "Collecte 1 : Rue du Père Le Texier" },
+        { position: { lat: 48.06984, lng: -2.88498 }, icon: "Icones/site-2-marker.png", image: "Photos/rue-des-rosiers-pontigo-1.png", adresse: "Collecte 2 : Rue des rosiers / Rue du Pontigo" },
+        { position: { lat: 48.0667, lng: -2.87431 }, icon: "Icones/site-3-marker.png", image: "Photos/le-verger-bel-air.png", adresse: "Collecte 3 : Le Verger / Bel air" },
+        { position: { lat: 48.06985, lng: -2.8824 }, icon: "Icones/site-4-marker.png", image: "Photos/parking-chateau-deau.png", adresse: "Collecte 4 : Parking du château d'eau" },
+        { position: { lat: 48.06912, lng: -2.87623 }, icon: "Icones/site-5-marker.png", image: "Photos/rue-abbe-le-drogo.png", adresse: "Collecte 5 : Rue Abbé Le Drogo" },
+        { position: { lat: 48.06474, lng: -2.88285 }, icon: "Icones/site-6-marker.png", image: "Photos/rue-kroez-person-1.png", adresse: "Collecte 6 : Rue Kroez-Person (La Poste)" },
+        { position: { lat: 48.06663, lng: -2.88406 }, icon: "Icones/site-7-marker.png", image: "Photos/rue-joachim-le-strat.png", adresse: "Collecte 7 : Rue Joachim Le Strat" },
+        { position: { lat: 48.0682, lng: -2.88728 }, icon: "Icones/site-8-marker.png", image: "Photos/rue-des-sports-2.png", adresse: "Collecte 8 : Rue des sports" },
+        { position: { lat: 48.0643, lng: -2.88 }, icon: "Icones/site-9-marker.png", image: "Photos/rue-de-collesternic.png", adresse: "Collecte 9 : Rue du petit Paris - Collesternic" },
+        { position: { lat: 48.06527, lng: -2.88753 }, icon: "Icones/site-10-marker.png", image: "Photos/maison-des-jeunes.png", adresse: "Collecte 10 : Maison des jeunes" },
+        { position: { lat: 48.06217, lng: -2.89067 }, icon: "Icones/site-11-marker.png", image: "Photos/rue-follereau.png", adresse: "Collecte 11 : Rue Raoul Follereau" },
+        { position: { lat: 48.06385, lng: -2.88592 }, icon: "Icones/site-12-marker.png", image: "Photos/rue-des-freres-cogets.png", adresse: "Collecte 12 : Rue des frères Cogets" },
+        { position: { lat: 48.06745, lng: -2.87984 }, icon: "Icones/site-13-marker.png", image: "Photos/avenue-de-la-liberation.png", adresse: "Collecte 13 : Avenue de la libération" },
+        { position: { lat: 48.06753, lng: -2.86298 }, icon: "Icones/site-14-marker.png", image: "Photos/cite-solaire.png", adresse: "Collecte 14 : Cité solaire" },
+        { position: { lat: 48.06735, lng: -2.89082 }, icon: "Icones/site-15-marker.png", image: "Photos/rue-des-bouleaux.png", adresse: "Collecte 15 : Rue des bouleaux" },
+        { position: { lat: 48.06094, lng: -2.88158 }, icon: "Icones/site-16-marker.png", image: "Photos/impasse-lamennais.png", adresse: "Collecte 16 : Impasse Lamennais" }
       ];
 
       sites.forEach(site => {
@@ -177,11 +105,15 @@
           .addTo(map)
           .bindPopup(`
             <div>
-              <img src="${site.image}" alt="Photo de ${site.adresse}">
+              <img src="${site.image}" alt="Photo de ${site.adresse}"
+                   onerror="this.src='https://via.placeholder.com/800x450?text=Image+introuvable'">
               <p>${site.adresse}</p>
             </div>
           `);
       });
+
+      setTimeout(() => map.invalidateSize(), 300);
+      window.addEventListener('resize', () => map.invalidateSize());
     </script>
   </body>
 </html>
